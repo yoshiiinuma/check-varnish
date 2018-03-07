@@ -1,15 +1,21 @@
 #!/usr/bin/env python
 
 '''
-usage: sudo varnishlog | python check-varnish.py [--all]
+usage: sudo varnishlog | python check-varnish.py [--all] [--detail]
 '''
 
 import sys
 import re
 
 only_miss = True
-if len(sys.argv) == 2 and sys.argv[1] == '--all':
-    only_miss = False
+detail = False
+
+if len(sys.argv) > 1
+    for arg in sys.argv:
+        if arg == '--all':
+            only_miss = False
+        if arg == '--detail':
+            detail = True
 
 req_method = re.compile(r"ReqMethod +([^ ]+)")
 req_url = re.compile(r"ReqURL +([^ ]+)")
@@ -31,6 +37,8 @@ def display(r):
         if 'X-Cache' in r and r['X-Cache'] != 'MISS':
             return
     print('{X-Cache:4} {ReqMethod:5} {RespStatus} {ReqURL}'.format(**r))
+    if detail:
+        print(r)
 
 def main():
     key = ''
