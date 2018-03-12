@@ -10,7 +10,7 @@ import re
 only_miss = True
 detail = False
 
-if len(sys.argv) > 1
+if len(sys.argv) > 1:
     for arg in sys.argv:
         if arg == '--all':
             only_miss = False
@@ -36,6 +36,8 @@ def display(r):
     if only_miss:
         if 'X-Cache' in r and r['X-Cache'] != 'MISS':
             return
+    if 'X-Cache' not in r:
+      r['X-Cache'] = ''
     print('{X-Cache:4} {ReqMethod:5} {RespStatus} {ReqURL}'.format(**r))
     if detail:
         print(r)
